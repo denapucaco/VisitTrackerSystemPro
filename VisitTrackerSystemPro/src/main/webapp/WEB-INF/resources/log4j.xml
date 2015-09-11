@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="true">
+
+	<!-- Console Appenders-->
+	<appender name="consoleAppenderINFO" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="consoleAppenderDEBUG" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+
+	<!-- File Appenders-->
+	<appender name="vtsFileAppenderINFO" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="File" value="C:\\VTS\\visit-tracking-system.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="vtsFileAppenderDEBUG" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="DEBUG" />
+		<param name="File" value="C:\\VTS\\visit-tracking-system-debug.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="springframeworkFileAppenderINFO" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="File" value="C:\\VTS\\vts-springframework.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<appender name="hibernateFileAppenderINFO" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="INFO" />
+		<param name="File" value="C:\\VTS\\vts-hibernate.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d %-5p  [%c{1}] %m %n" />
+		</layout>
+	</appender>
+
+	<!-- Loggers -->
+	<logger name="com.minda" additivity="false">
+		<level value="DEBUG" />
+		<!-- <appender-ref ref="consoleAppenderINFO" /> -->
+		<appender-ref ref="consoleAppenderDEBUG" />
+		<appender-ref ref="vtsFileAppenderINFO" />
+		<appender-ref ref="vtsFileAppenderDEBUG" />
+	</logger>
+
+	<logger name="org.springframework" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="consoleAppenderINFO" />
+		<!-- <appender-ref ref="consoleAppenderDEBUG" />  -->
+		<appender-ref ref="springframeworkFileAppenderINFO" />
+	</logger>
+
+	<logger name="org.hibernate" additivity="false">
+		<level value="INFO" />
+		<appender-ref ref="consoleAppenderINFO" />
+		<appender-ref ref="hibernateFileAppenderINFO" />
+	</logger>
+</log4j:configuration>

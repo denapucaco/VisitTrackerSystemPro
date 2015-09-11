@@ -1,0 +1,52 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+<body leftmargin="20" topmargin="20" marginwidth="1" marginheight="1">
+	<!-- BEGIN: Main Content Table -->
+	<table width="692" border="0" cellspacing="0" cellpadding="1" bgcolor="#f0f6fb">
+		<tr>
+			<td width="692">
+				<table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#f0f6fb">
+
+					<tr>
+						<td align="left" width="687">
+							<!-- BEGIN: Title Table -->
+							<table width="100%" border="0" cellspacing="5" cellpadding="0" leftmargin="20">
+								<tr>
+									<td width="687" align="left">
+									<span style="FONT-SIZE: 11px; COLOR: #2d6d8a; font-family: Verdana, Arial, Helvetica, sans-serif;">
+									Dear ${firstName} ${lastName},</span>
+									</td>
+								</tr>
+
+								<tr>
+									<td width="687" align="left">&nbsp;</td>
+								</tr>
+
+								<tr>
+									<td width="687" align="left">
+										<p>
+											<span style="FONT-SIZE: 11px; COLOR: #2d6d8a; font-family: Verdana, Arial, Helvetica, sans-serif;">
+												Welcome to the Visit Tracking System.
+												Your User Name is ${userName}, Password is ${password}.
+											<br>
+											<br>
+										</p></td>
+								</tr>
+								<tr>
+									<td width="687" align="left">
+									<span style="FONT-SIZE: 11px; COLOR: #2d6d8a; font-family: Verdana, Arial, Helvetica, sans-serif;">
+											Thanks and Regards, </span></td>
+								</tr>
+								<tr>
+									<td><span style="FONT-SIZE: 11px; COLOR: #2d6d8a; font-family: Verdana, Arial, Helvetica, sans-serif;">
+											VTS Team </span></td>
+								</tr>
+							</table> <!-- END: Title Table --></td>
+					</tr>
+				</table></td>
+		</tr>
+	</table>
+</body>
+</html>
