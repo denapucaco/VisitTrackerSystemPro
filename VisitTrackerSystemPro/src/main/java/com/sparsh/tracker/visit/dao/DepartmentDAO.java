@@ -11,9 +11,9 @@ import com.sparsh.tracker.visit.domain.Department;
  */
 public interface DepartmentDAO {
 
-    Department findById(Integer id);
+    Department findById(final Integer id);
 
-    void save(Department department);
+    void save(final Department department);
 
     List findAll();
 }

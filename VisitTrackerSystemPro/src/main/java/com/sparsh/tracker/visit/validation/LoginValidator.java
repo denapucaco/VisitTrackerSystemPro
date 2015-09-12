@@ -10,12 +10,12 @@ import com.sparsh.tracker.visit.domain.Login;
 public class LoginValidator implements Validator {
 
     // @Override
-    public boolean supports(Class<?> clazz) {
+    public boolean supports(final Class<?> clazz) {
         return Login.class.isAssignableFrom(clazz);
     }
 
     // @Override
-    public void validate(Object target, Errors errors) {
+    public void validate(final Object target, final Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "userName", "userName.required");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.required");
 

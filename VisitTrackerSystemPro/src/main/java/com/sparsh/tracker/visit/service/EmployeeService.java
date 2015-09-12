@@ -10,11 +10,15 @@ import com.sparsh.tracker.visit.domain.Employee;
 * @created on 26/08/2012
 */
 public interface EmployeeService {
-	public static String STATUS_ACTIVE = "STS001";
-	public static String STATUS_REGINED = "STS002";
-	
-	public void create(Employee employee);
-	public Employee findById(Integer id);
-	public List findAll();
-	public Employee findByEmployeeNumber(Integer employeeNumber);
+
+    String STATUS_ACTIVE = "STS001";
+    String STATUS_REGINED = "STS002";
+
+    void create(final Employee employee);
+
+    Employee findById(final Integer id);
+
+    List findAll();
+
+    Employee findByEmployeeNumber(final Integer employeeNumber);
 }

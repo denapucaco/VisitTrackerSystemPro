@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sparsh.tracker.visit.dao.EmployeeDAO;
@@ -21,7 +21,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
     private HibernateTemplate hibernateTemplate;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
@@ -29,8 +29,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
      * (non-Javadoc)
      * @see com.minda.dao.EmployeeDAO#findById(java.lang.Long)
      */
-    // @Override
-    public Employee findById(Integer id) {
+    @Override
+    public Employee findById(final Integer id) {
         return (Employee) hibernateTemplate.get(Employee.class, id);
     }
 
@@ -38,8 +38,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
      * (non-Javadoc)
      * @see com.minda.dao.EmployeeDAO#save(com.minda.domain.Department)
      */
-    // @Override
-    public void save(Employee employee) {
+    @Override
+    public void save(final Employee employee) {
         hibernateTemplate.saveOrUpdate(employee);
     }
 
@@ -47,7 +47,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
      * (non-Javadoc)
      * @see com.minda.dao.EmployeeDAO#findAll()
      */
-    // @Override
+    @Override
     public List findAll() {
         return hibernateTemplate.findByNamedQuery("findAll");
     }
@@ -56,8 +56,8 @@ public class EmployeeDAOImpl implements EmployeeDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.EmployeeDAO#findByEmployeeNumber(java.lang.Integer)
      */
-    // @Override
-    public List findByEmployeeNumber(Integer employeeNumber) {
+    @Override
+    public List findByEmployeeNumber(final Integer employeeNumber) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("findEmployeeByNumber", "employeeNumber", employeeNumber);
     }
 

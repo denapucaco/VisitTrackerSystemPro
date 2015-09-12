@@ -13,54 +13,54 @@ import com.sparsh.tracker.visit.domain.Visit;
  */
 public class ReportForm {
 
-	@Autowired
-	Report report;
-	
-	@Autowired
-	Employee employee;
-	
-	@Autowired
-	Visit visit;
+    @Autowired
+    Report report;
 
-	/**
-	 * @return the report
-	 */
-	public Report getReport() {
-		return report;
-	}
+    @Autowired
+    Employee employee;
 
-	/**
-	 * @param report the report to set
-	 */
-	public void setReport(Report report) {
-		this.report = report;
-	}
+    @Autowired
+    Visit visit;
 
-	/**
-	 * @return the employee
-	 */
-	public Employee getEmployee() {
-		return employee;
-	}
+    /**
+     * @return the report
+     */
+    public Report getReport() {
+        return report;
+    }
 
-	/**
-	 * @param employee the employee to set
-	 */
-	public void setEmployee(Employee employee) {
-		this.employee = employee;
-	}
+    /**
+     * @param report the report to set
+     */
+    public void setReport(final Report report) {
+        this.report = report;
+    }
 
-	/**
-	 * @return the visit
-	 */
-	public Visit getVisit() {
-		return visit;
-	}
+    /**
+     * @return the employee
+     */
+    public Employee getEmployee() {
+        return employee;
+    }
 
-	/**
-	 * @param visit the visit to set
-	 */
-	public void setVisit(Visit visit) {
-		this.visit = visit;
-	}
+    /**
+     * @param employee the employee to set
+     */
+    public void setEmployee(final Employee employee) {
+        this.employee = employee;
+    }
+
+    /**
+     * @return the visit
+     */
+    public Visit getVisit() {
+        return visit;
+    }
+
+    /**
+     * @param visit the visit to set
+     */
+    public void setVisit(final Visit visit) {
+        this.visit = visit;
+    }
 }

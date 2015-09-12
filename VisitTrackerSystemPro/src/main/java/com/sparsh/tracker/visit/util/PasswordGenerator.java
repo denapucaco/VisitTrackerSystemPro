@@ -9,12 +9,13 @@ import org.apache.commons.lang.RandomStringUtils;
  */
 public class PasswordGenerator {
 
-	public static Integer LENGTH = 8;
-	/**
-	 * Generate Random Password
-	 * @return String
-	 */
-	public static String generate(){
-		return RandomStringUtils.randomAlphanumeric(LENGTH);
-	}
+    public static final Integer LENGTH = 8;
+
+    /**
+     * Generate Random Password
+     * @return String
+     */
+    public static String generate() {
+        return RandomStringUtils.randomAlphanumeric(LENGTH);
+    }
 }

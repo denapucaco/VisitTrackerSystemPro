@@ -10,31 +10,31 @@ import com.sparsh.tracker.visit.domain.Login;
 
 public interface LoginService {
 
-    public final static String ROLE_USER = "ROLE_USER";
-    public final static String ROLE_SECURITY = "ROLE_SECURITY";
-    public final static String ROLE_ADMIN = "ROLE_ADMIN";
+    String ROLE_USER = "ROLE_USER";
+    String ROLE_SECURITY = "ROLE_SECURITY";
+    String ROLE_ADMIN = "ROLE_ADMIN";
 
-    public final static Integer ACCESS_USER = 1;
-    public final static Integer ACCESS_SECURITY = 2;
-    public final static Integer ACCESS_ADMIN = 3;
+    Integer ACCESS_USER = 1;
+    Integer ACCESS_SECURITY = 2;
+    Integer ACCESS_ADMIN = 3;
 
     /**
      * Create the new Login
      * @param login
      */
-    public void create(Login login);
+    void create(final Login login);
 
     /**
      * Find the Login by login id
      * @param id
      * @return Login
      */
-    public Login findById(Integer id);
+    Login findById(final Integer id);
 
     /**
      * Find the Login by User Name 
      * @param userName
      * @return Login
      */
-    public Login findByUserName(String userName);
+    Login findByUserName(final String userName);
 }

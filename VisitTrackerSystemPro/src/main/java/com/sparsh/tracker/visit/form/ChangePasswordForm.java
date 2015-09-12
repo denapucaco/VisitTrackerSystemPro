@@ -1,6 +1,5 @@
 package com.sparsh.tracker.visit.form;
 
-
 /**
  * Change Password Form
  * @author Prashant Swamy
@@ -8,31 +7,35 @@ package com.sparsh.tracker.visit.form;
  */
 public class ChangePasswordForm {
 
-	private String newPassword;
-	
-	private String confirmPassword;
-	/**
-	 * @return the newPassword
-	 */
-	public String getNewPassword() {
-		return newPassword;
-	}
-	/**
-	 * @param newPassword the newPassword to set
-	 */
-	public void setNewPassword(String newPassword) {
-		this.newPassword = newPassword;
-	}
-	/**
-	 * @return the confirmPassword
-	 */
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-	/**
-	 * @param confirmPassword the confirmPassword to set
-	 */
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    private String newPassword;
+
+    private String confirmPassword;
+
+    /**
+     * @return the newPassword
+     */
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    /**
+     * @param newPassword the newPassword to set
+     */
+    public void setNewPassword(final String newPassword) {
+        this.newPassword = newPassword;
+    }
+
+    /**
+     * @return the confirmPassword
+     */
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    /**
+     * @param confirmPassword the confirmPassword to set
+     */
+    public void setConfirmPassword(final String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 }

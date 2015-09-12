@@ -34,14 +34,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * @param LoginService the loginService to set
      */
-    public void setLoginService(LoginService loginService) {
+    public void setLoginService(final LoginService loginService) {
         this.loginService = loginService;
     }
 
     /**
      * Retrieves a user record containing the user's credentials and access. 
      */
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException, DataAccessException {
+    public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException, DataAccessException {
 
         // Declare a null Spring User
         UserDetails user = null;
@@ -84,7 +84,7 @@ public class CustomUserDetailsService implements UserDetailsService {
      * @param access an integer value representing the access of the user
      * @return collection of granted authorities
      */
-    public Collection<GrantedAuthority> getAuthorities(Integer access) {
+    public Collection<GrantedAuthority> getAuthorities(final Integer access) {
         // Create a list of grants for this user
         List<GrantedAuthority> authList = new ArrayList<GrantedAuthority>(2);
 

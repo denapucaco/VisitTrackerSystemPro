@@ -32,91 +32,91 @@ import com.sparsh.tracker.visit.service.VisitService;
  * @created on 11/12/2012
  */
 @Controller
-@RequestMapping(value="/employee")
+@RequestMapping(value = "/employee")
 public class AddVisitController {
 
-	private static final Logger LOGGER = Logger.getLogger(AddVisitController.class);
-	
-	@Autowired
-	private VisitService visitService;
+    private static final Logger LOGGER = Logger.getLogger(AddVisitController.class);
 
-//	@Autowired
-//	private EmployeeService employeeService;
+    @Autowired
+    private VisitService visitService;
 
-	@RequestMapping(value = "/addvisit", method=RequestMethod.GET)
-	public String createVisit(Map<String, Object> model, HttpSession session) {
-		try {
-			LOGGER.info("/employee/addvisit");
-			Login login = (Login) session.getAttribute("login");
-			if(login==null || login.getUserName().equals("")) {
-				return "redirect:/auth/login.do";
-			}
-			
-//			Employee employee = employeeService.findByEmployeeNumber(empNumber);
-			Employee employee = login.getEmployee();
-			if(employee==null) {
-				model.put("error_message", "Employee not found");
-				return "error";
-			}
-			Visit visit = new Visit();
-			visit.setEmployee(employee);
+    // @Autowired
+    // private EmployeeService employeeService;
 
-			visit.setCreatedOn(new Date());
-			model.put("visit", visit);
-//			model.put("userName", login.getUserName());
-			return "create_visit";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
+    @RequestMapping(value = "/addvisit", method = RequestMethod.GET)
+    public String createVisit(final Map<String, Object> model, final HttpSession session) {
+        try {
+            LOGGER.info("/employee/addvisit");
+            Login login = (Login) session.getAttribute("login");
+            if (login == null || login.getUserName().equals("")) {
+                return "redirect:/auth/login.do";
+            }
 
-	@RequestMapping(value = "/confirmcreate", method = RequestMethod.POST)
-	public String addVisit(@ModelAttribute("SpringWeb")Visit visit, Map<String, Object> model) {
-		try {
-			LOGGER.info("/employee/confirmcreate");
+            // Employee employee = employeeService.findByEmployeeNumber(empNumber);
+            Employee employee = login.getEmployee();
+            if (employee == null) {
+                model.put("error_message", "Employee not found");
+                return "error";
+            }
+            Visit visit = new Visit();
+            visit.setEmployee(employee);
 
-			model.put("visit", visit);
-			return "confirm_create_visit";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
-	
-	@RequestMapping(value = "/addsuccess", method = RequestMethod.POST)
-	@Transactional
-	public String addSuccess(@ModelAttribute("SpringWeb")Visit visit, Map<String, Object> model) {
-		try {
-			LOGGER.info("/employee/addsuccess");
-			
-			visit.setIsCanceled(false);
-			visit.setIsConfirmed(false);
-			visit.setCreatedOn(new Date());
-			visitService.create(visit);
+            visit.setCreatedOn(new Date());
+            model.put("visit", visit);
+            // model.put("userName", login.getUserName());
+            return "create_visit";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
 
-			model.put("message", "Visit added successfully!");
-			return "add_success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
+    @RequestMapping(value = "/confirmcreate", method = RequestMethod.POST)
+    public String addVisit(@ModelAttribute("SpringWeb") final Visit visit, final Map<String, Object> model) {
+        try {
+            LOGGER.info("/employee/confirmcreate");
 
-	@RequestMapping(value = "/get_visitor_name", method = RequestMethod.GET, headers="Accept=*/*")
-	public @ResponseBody List<String> getVisitorNameList(@RequestParam("term") String query) {
-		List<String> visitorNameList = visitService.getVisitorNames(query);
-		return visitorNameList;
-	}
+            model.put("visit", visit);
+            return "confirm_create_visit";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
 
-	@InitBinder
-	protected void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    @RequestMapping(value = "/addsuccess", method = RequestMethod.POST)
+    @Transactional
+    public String addSuccess(@ModelAttribute("SpringWeb") final Visit visit, final Map<String, Object> model) {
+        try {
+            LOGGER.info("/employee/addsuccess");
+
+            visit.setIsCanceled(false);
+            visit.setIsConfirmed(false);
+            visit.setCreatedOn(new Date());
+            visitService.create(visit);
+
+            model.put("message", "Visit added successfully!");
+            return "add_success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
+
+    @RequestMapping(value = "/get_visitor_name", method = RequestMethod.GET, headers = "Accept=*/*")
+    public @ResponseBody List<String> getVisitorNameList(@RequestParam("term") final String query) {
+        List<String> visitorNameList = visitService.getVisitorNames(query);
+        return visitorNameList;
+    }
+
+    @InitBinder
+    protected void initBinder(final WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
         binder.registerCustomEditor(String.class, new StringTrimmerEditor(false));
-	}
+    }
 }

@@ -7,7 +7,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sparsh.tracker.visit.dao.VisitDAO;
@@ -24,21 +24,21 @@ public class VisitDAOImpl implements VisitDAO {
     private HibernateTemplate hibernateTemplate;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
-    // @Override
-    public Visit findById(Integer id) {
+    @Override
+    public Visit findById(final Integer id) {
         return (Visit) hibernateTemplate.get(Visit.class, id);
     }
 
-    // @Override
-    public void save(Visit visit) {
+    @Override
+    public void save(final Visit visit) {
         hibernateTemplate.saveOrUpdate(visit);
     }
 
-    // @Override
+    @Override
     public List findAll() {
         return hibernateTemplate.findByNamedQuery("findAllVisits");
     }
@@ -47,8 +47,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getVisits(java.util.Date)
      */
-    // @Override
-    public List getVisits(Date date) {
+    @Override
+    public List getVisits(final Date date) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getVisitsForDate", "scheduledDate", date);
     }
 
@@ -56,8 +56,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getVisits(java.lang.Integer, java.util.Date)
      */
-    // @Override
-    public List getVisits(Integer employeeNumber, Date date) {
+    @Override
+    public List getVisits(final Integer employeeNumber, final Date date) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getVisitsForEmployeeAndDate", new String[] { "employeeNumber",
                 "scheduledDate" }, new Object[] { employeeNumber, date });
     }
@@ -66,8 +66,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getNonConfirmedVisitsForEmployee(java.lang.Integer)
      */
-    // @Override
-    public List getNonConfirmedVisitsForEmployee(Integer employeeNumber) {
+    @Override
+    public List getNonConfirmedVisitsForEmployee(final Integer employeeNumber) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getNonConfirmedVisitsForEmployee", "employeeNumber", employeeNumber);
     }
 
@@ -75,8 +75,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getCancellableVisitsForEmployee(java.lang.Integer)
      */
-    // @Override
-    public List getCancellableVisitsForEmployee(Integer employeeNumber) {
+    @Override
+    public List getCancellableVisitsForEmployee(final Integer employeeNumber) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getCancellableVisitsForEmployee", "employeeNumber", employeeNumber);
     }
 
@@ -84,8 +84,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getVisitorNames(java.lang.String)
      */
-    // @Override
-    public List getVisitorNames(String name) {
+    @Override
+    public List getVisitorNames(final String name) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getVisitorNames", "visitorName", "%" + name + "%");
     }
 
@@ -93,8 +93,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getVistsAfterDate(java.util.Date)
      */
-    // @Override
-    public List getVistsAfterDate(Date fromDate) {
+    @Override
+    public List getVistsAfterDate(final Date fromDate) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getVisitsAfterDate", "fromDate", fromDate);
     }
 
@@ -102,8 +102,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#getVistsForDateRange(java.util.Date, java.util.Date)
      */
-    // @Override
-    public List getVistsForDateRange(Date fromDate, Date toDate) {
+    @Override
+    public List getVistsForDateRange(final Date fromDate, final Date toDate) {
         return hibernateTemplate.findByNamedQueryAndNamedParam("getVistsForDateRange", new String[] { "fromDate", "toDate" }, new Object[] {
                 fromDate, toDate });
     }
@@ -112,8 +112,8 @@ public class VisitDAOImpl implements VisitDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.VisitDAO#executeHQLQuery(java.lang.String)
      */
-    // @Override
-    public List executeHQLQuery(String sql) {
+    @Override
+    public List executeHQLQuery(final String sql) {
         SessionFactory sessionFactory = hibernateTemplate.getSessionFactory();
         Session session = sessionFactory.openSession();
         List list = null;

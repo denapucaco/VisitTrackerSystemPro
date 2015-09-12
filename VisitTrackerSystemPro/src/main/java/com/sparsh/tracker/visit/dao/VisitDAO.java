@@ -11,42 +11,47 @@ import com.sparsh.tracker.visit.domain.Visit;
 * @created on 02/09/2012
 */
 public interface VisitDAO {
-	public Visit findById(Integer id);	
-	public void save(Visit visit);
-	public List findAll();
-	
-	public List getVisits(Date date);
-	
-	/**
-	 * Get all visits of a employee which are not yet confirmed for input day
-	 * @param Integer employeeNumber
-	 * @param Date date
-	 * @return List of Non Confirmed Visits
-	 */
-	public List getVisits(Integer employeeNumber, Date date);
-	
-	/**
-	 * Get all visits of a employee which are not yet confirmed
-	 * @param Integer employeeNumber
-	 * @return List of Non Confirmed Visits
-	 */
-	public List getNonConfirmedVisitsForEmployee(Integer employeeNumber);
 
-	/**
-	 * Get all visits of a employee which can be canceled
-	 * @param Integer employeeNumber
-	 * @return List of Cancel able Visits
-	 */
-	public List getCancellableVisitsForEmployee(Integer employeeNumber);
-	
-	public List getVisitorNames(String name);
-	public List getVistsAfterDate(Date fromDate);
-	public List getVistsForDateRange(Date fromDate, Date toDate);
-	
-	/**
-	 * Execute the generated HQL for Report
-	 * @param String sql 
-	 * @return List of Visits
-	 */
-	public List executeHQLQuery(String sql);
+    Visit findById(final Integer id);
+
+    void save(final Visit visit);
+
+    List findAll();
+
+    List getVisits(final Date date);
+
+    /**
+     * Get all visits of a employee which are not yet confirmed for input day
+     * @param Integer employeeNumber
+     * @param Date date
+     * @return List of Non Confirmed Visits
+     */
+    List getVisits(final Integer employeeNumber, final Date date);
+
+    /**
+     * Get all visits of a employee which are not yet confirmed
+     * @param Integer employeeNumber
+     * @return List of Non Confirmed Visits
+     */
+    List getNonConfirmedVisitsForEmployee(final Integer employeeNumber);
+
+    /**
+     * Get all visits of a employee which can be canceled
+     * @param Integer employeeNumber
+     * @return List of Cancel able Visits
+     */
+    List getCancellableVisitsForEmployee(final Integer employeeNumber);
+
+    List getVisitorNames(final String name);
+
+    List getVistsAfterDate(final Date fromDate);
+
+    List getVistsForDateRange(final Date fromDate, final Date toDate);
+
+    /**
+     * Execute the generated HQL for Report
+     * @param String sql 
+     * @return List of Visits
+     */
+    List executeHQLQuery(final String sql);
 }

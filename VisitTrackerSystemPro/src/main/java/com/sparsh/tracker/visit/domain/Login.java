@@ -68,7 +68,7 @@ public class Login implements Serializable {
     /**
      * @param loginId the loginId to set
      */
-    public void setLoginId(Integer loginId) {
+    public void setLoginId(final Integer loginId) {
         this.loginId = loginId;
     }
 
@@ -82,7 +82,7 @@ public class Login implements Serializable {
     /**
      * @param userName the userName to set
      */
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
         this.userName = userName;
     }
 
@@ -96,7 +96,7 @@ public class Login implements Serializable {
     /**
      * @param password the password to set
      */
-    public void setPassword(String password) {
+    public void setPassword(final String password) {
         this.password = password;
     }
 
@@ -110,7 +110,7 @@ public class Login implements Serializable {
     /**
      * @param enabled the enabled to set
      */
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(final Boolean enabled) {
         this.enabled = enabled;
     }
 
@@ -124,7 +124,7 @@ public class Login implements Serializable {
     /**
      * @param access the access to set
      */
-    public void setAccess(Integer access) {
+    public void setAccess(final Integer access) {
         this.access = access;
     }
 
@@ -138,7 +138,7 @@ public class Login implements Serializable {
     /**
      * @param employee the employee to set
      */
-    public void setEmployee(Employee employee) {
+    public void setEmployee(final Employee employee) {
         this.employee = employee;
     }
 
@@ -152,7 +152,7 @@ public class Login implements Serializable {
     /**
      * @param accountNonExpired the accountNonExpired to set
      */
-    public void setAccountNonExpired(Boolean accountNonExpired) {
+    public void setAccountNonExpired(final Boolean accountNonExpired) {
         this.accountNonExpired = accountNonExpired;
     }
 
@@ -166,7 +166,7 @@ public class Login implements Serializable {
     /**
      * @param credentialsNonExpired the credentialsNonExpired to set
      */
-    public void setCredentialsNonExpired(Boolean credentialsNonExpired) {
+    public void setCredentialsNonExpired(final Boolean credentialsNonExpired) {
         this.credentialsNonExpired = credentialsNonExpired;
     }
 
@@ -180,7 +180,7 @@ public class Login implements Serializable {
     /**
      * @param accountNotLocked the accountNotLocked to set
      */
-    public void setAccountNotLocked(Boolean accountNotLocked) {
+    public void setAccountNotLocked(final Boolean accountNotLocked) {
         this.accountNotLocked = accountNotLocked;
     }
 }

@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sparsh.tracker.visit.dao.LoginDAO;
@@ -31,8 +31,8 @@ public class LoginDAOImpl implements LoginDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.LoginDAO#findById(java.lang.Integer)
      */
-    // @Override
-    public Login findById(Integer id) {
+    @Override
+    public Login findById(final Integer id) {
         return (Login) hibernateTemplate.get(Login.class, id);
     }
 
@@ -40,8 +40,8 @@ public class LoginDAOImpl implements LoginDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.LoginDAO#save(com.sparsh.tracker.visit.domain.Login)
      */
-    // @Override
-    public void save(Login login) {
+    @Override
+    public void save(final Login login) {
         hibernateTemplate.saveOrUpdate(login);
     }
 
@@ -49,8 +49,8 @@ public class LoginDAOImpl implements LoginDAO {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.dao.LoginDAO#findByUserName(com.sparsh.tracker.visit.domain.Login)
      */
-    // @Override
-    public Login findByUserName(String userName) {
+    @Override
+    public Login findByUserName(final String userName) {
         List<Login> logins = (List<Login>) hibernateTemplate.findByNamedQueryAndNamedParam("findLoginByUserName", "userName", userName);
         if (logins != null && logins.size() > 0) {
             return (Login) logins.get(0);

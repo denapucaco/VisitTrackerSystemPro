@@ -26,7 +26,7 @@ public class VisitServiceImpl implements VisitService {
     /**
      * @param visitDAO the visitorDAO to set
      */
-    public void setVisitDAO(VisitDAO visitDAO) {
+    public void setVisitDAO(final VisitDAO visitDAO) {
         this.visitDAO = visitDAO;
     }
 
@@ -34,9 +34,9 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitorService#create(com.sparsh.tracker.visit.domain.Visitor)
      */
-    // @Override
+    @Override
     @Transactional
-    public void create(Visit visit) {
+    public void create(final Visit visit) {
         visitDAO.save(visit);
     }
 
@@ -44,9 +44,9 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitorService#findById(java.lang.Integer)
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
-    public Visit findById(Integer id) {
+    public Visit findById(final Integer id) {
         return visitDAO.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitorService#findAll()
      */
-    // @Override
+    @Override
     // @Transactional(readOnly=true)
     public List findAll() {
         return visitDAO.findAll();
@@ -64,8 +64,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getVisits(java.util.Date)
      */
-    // @Override
-    public List getVisits(Date date) {
+    @Override
+    public List getVisits(final Date date) {
         return visitDAO.getVisits(date);
     }
 
@@ -73,8 +73,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getVisits(java.lang.Integer, java.util.Date)
      */
-    // @Override
-    public List getVisits(Integer employeeNumber, Date date) {
+    @Override
+    public List getVisits(final Integer employeeNumber, final Date date) {
         return visitDAO.getVisits(employeeNumber, date);
     }
 
@@ -82,8 +82,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getNonConfirmedVisitsForEmployee(java.lang.Integer)
      */
-    // @Override
-    public List getNonConfirmedVisitsForEmployee(Integer employeeNumber) {
+    @Override
+    public List getNonConfirmedVisitsForEmployee(final Integer employeeNumber) {
         return visitDAO.getNonConfirmedVisitsForEmployee(employeeNumber);
     }
 
@@ -91,8 +91,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getCancellableVisitsForEmployee(java.lang.Integer)
      */
-    // @Override
-    public List getCancellableVisitsForEmployee(Integer employeeNumber) {
+    @Override
+    public List getCancellableVisitsForEmployee(final Integer employeeNumber) {
         return visitDAO.getCancellableVisitsForEmployee(employeeNumber);
     }
 
@@ -100,8 +100,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getVisitorNames(java.lang.String)
      */
-    // @Override
-    public List getVisitorNames(String name) {
+    @Override
+    public List getVisitorNames(final String name) {
         return visitDAO.getVisitorNames(name);
     }
 
@@ -109,8 +109,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getVistsAfterDate(java.util.Date)
      */
-    // @Override
-    public List getVisitsAfterDate(Date fromDate) {
+    @Override
+    public List getVisitsAfterDate(final Date fromDate) {
         return visitDAO.getVistsAfterDate(fromDate);
     }
 
@@ -118,8 +118,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#getVistsForDateRange(java.util.Date, java.util.Date)
      */
-    // @Override
-    public List getVisitsForDateRange(Date fromDate, Date toDate) {
+    @Override
+    public List getVisitsForDateRange(final Date fromDate, final Date toDate) {
         return visitDAO.getVistsForDateRange(fromDate, toDate);
     }
 
@@ -127,8 +127,8 @@ public class VisitServiceImpl implements VisitService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.VisitService#executeHQLQuery(java.lang.String)
      */
-    // @Override
-    public List executeHQLQuery(String sql) {
+    @Override
+    public List executeHQLQuery(final String sql) {
         return visitDAO.executeHQLQuery(sql);
     }
 }

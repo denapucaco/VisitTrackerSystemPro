@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.orm.hibernate4.HibernateTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.sparsh.tracker.visit.dao.DepartmentDAO;
@@ -22,7 +22,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
     private HibernateTemplate hibernateTemplate;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public void setSessionFactory(final SessionFactory sessionFactory) {
         this.hibernateTemplate = new HibernateTemplate(sessionFactory);
     }
 
@@ -30,8 +30,8 @@ public class DepartmentDAOImpl implements DepartmentDAO {
      * (non-Javadoc)
      * @see com.minda.dao.DepartmentDAO#findById(java.lang.Long)
      */
-    // @Override
-    public Department findById(Integer id) {
+    @Override
+    public Department findById(final Integer id) {
         // return (Department)hibernateTemplate.findByNamedQueryAndNamedParam("findById", "departmentId", id);
         return (Department) hibernateTemplate.get(Department.class, id);
     }
@@ -40,8 +40,8 @@ public class DepartmentDAOImpl implements DepartmentDAO {
      * (non-Javadoc)
      * @see com.minda.dao.DepartmentDAO#save(com.minda.domain.Department)
      */
-    // @Override
-    public void save(Department department) {
+    @Override
+    public void save(final Department department) {
         hibernateTemplate.saveOrUpdate(department);
     }
 
@@ -49,7 +49,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
      * (non-Javadoc)
      * @see com.minda.dao.DepartmentDAO#findAll()
      */
-    // @Override
+    @Override
     public List findAll() {
         return hibernateTemplate.findByNamedQuery("findAllDepartments");
     }

@@ -27,11 +27,11 @@ public class NotificationService {
     @Autowired
     private VelocityEngine velocityEngine;
 
-    public void setMailSender(MailSender mailSender) {
+    public void setMailSender(final MailSender mailSender) {
         this.mailSender = mailSender;
     }
 
-    public void setVelocityEngine(VelocityEngine velocityEngine) {
+    public void setVelocityEngine(final VelocityEngine velocityEngine) {
         this.velocityEngine = velocityEngine;
     }
 

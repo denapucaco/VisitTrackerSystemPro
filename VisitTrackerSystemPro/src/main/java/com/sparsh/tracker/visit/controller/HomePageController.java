@@ -63,7 +63,7 @@ public class HomePageController {
      * null; }
      */
     @RequestMapping(method = RequestMethod.GET)
-    public String showHomePage(Map<String, Object> model, HttpSession session, Principal principal) {
+    public String showHomePage(final Map<String, Object> model, final HttpSession session, final Principal principal) {
 
         Login login = (Login) session.getAttribute("login");
         if (login == null || login.getUserName().equals("")) {

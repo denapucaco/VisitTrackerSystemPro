@@ -25,7 +25,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     /**
      * @param departmentDAO the departmentDAO to set
      */
-    public void setDepartmentDAO(DepartmentDAO departmentDAO) {
+    public void setDepartmentDAO(final DepartmentDAO departmentDAO) {
         this.departmentDAO = departmentDAO;
     }
 
@@ -33,9 +33,9 @@ public class DepartmentServiceImpl implements DepartmentService {
      * (non-Javadoc)
      * @see com.minda.service.DepartmentService#create(com.minda.domain.Department)
      */
-    // @Override
+    @Override
     @Transactional
-    public void create(Department department) {
+    public void create(final Department department) {
         departmentDAO.save(department);
 
     }
@@ -44,9 +44,9 @@ public class DepartmentServiceImpl implements DepartmentService {
      * (non-Javadoc)
      * @see com.minda.service.DepartmentService#findById(java.lang.Long)
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
-    public Department findById(Integer id) {
+    public Department findById(final Integer id) {
         return (Department) departmentDAO.findById(id);
     }
 
@@ -54,7 +54,7 @@ public class DepartmentServiceImpl implements DepartmentService {
      * (non-Javadoc)
      * @see com.minda.service.DepartmentService#findAll()
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
     public List findAll() {
         return departmentDAO.findAll();

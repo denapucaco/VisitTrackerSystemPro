@@ -11,11 +11,11 @@ import com.sparsh.tracker.visit.domain.Employee;
 */
 public interface EmployeeDAO {
 
-    Employee findById(Integer id);
+    Employee findById(final Integer id);
 
-    void save(Employee employee);
+    void save(final Employee employee);
 
     List findAll();
 
-    List findByEmployeeNumber(Integer employeeNumber);
+    List findByEmployeeNumber(final Integer employeeNumber);
 }

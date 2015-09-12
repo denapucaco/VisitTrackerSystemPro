@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
 /**
  *
  * @author Prashant Swamy
@@ -20,164 +21,161 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "employee")
-@NamedQueries({
-	@NamedQuery(
-			name = "findAllEmployees",
-			query = "FROM Employee employee"),
-	@NamedQuery(
-			name = "findEmployeeByNumber",
-			query = "FROM Employee employee WHERE employee.employeeNumber = :employeeNumber")
-//	@NamedQuery(
-//			name = "findEmployeeByLoginPassword",
-//			query = "FROM Employee employee WHERE employee.login = :login and employee.password = :password")
+@NamedQueries({ @NamedQuery(name = "findAllEmployees", query = "FROM Employee employee"),
+        @NamedQuery(name = "findEmployeeByNumber", query = "FROM Employee employee WHERE employee.employeeNumber = :employeeNumber")
+// @NamedQuery(
+// name = "findEmployeeByLoginPassword",
+// query = "FROM Employee employee WHERE employee.login = :login and employee.password = :password")
 })
 public class Employee implements Serializable {
-	private static final long serialVersionUID = -1137658513454121311L;
 
-	@Id
-	@Basic(optional = false)
-	@GeneratedValue
-	@Column(name = "employee_id")
-	private Integer employeeId;
+    private static final long serialVersionUID = -1137658513454121311L;
 
-	@Column(name = "employee_number", length=10, nullable=false)
-	private Integer employeeNumber;
+    @Id
+    @Basic(optional = false)
+    @GeneratedValue
+    @Column(name = "employee_id")
+    private Integer employeeId;
 
-	@Column(name = "first_name", length=50, nullable=false)
-	private String firstName;
+    @Column(name = "employee_number", length = 10, nullable = false)
+    private Integer employeeNumber;
 
-	@Column(name = "last_name", length=50, nullable=false)
-	private String lastName;
+    @Column(name = "first_name", length = 50, nullable = false)
+    private String firstName;
 
-	@Column(name = "email", length=50, nullable=false)
-	private String email;
-	
-	@Column(name = "mobile_number", length=11, nullable=false)
-	private String mobileNumber;
+    @Column(name = "last_name", length = 50, nullable = false)
+    private String lastName;
 
-	@Column(name = "status", length=10, nullable=false)
-	private String status;
+    @Column(name = "email", length = 50, nullable = false)
+    private String email;
 
-	@ManyToOne(optional = false)
-	@JoinColumn(name="department_id")
-	private Department department;
-	
-	/**
-	 * 
-	 */
-	public Employee() {
-		super();
-	}
+    @Column(name = "mobile_number", length = 11, nullable = false)
+    private String mobileNumber;
 
-	/**
-	 * @return the employeeId
-	 */
-	public Integer getEmployeeId() {
-		return employeeId;
-	}
+    @Column(name = "status", length = 10, nullable = false)
+    private String status;
 
-	/**
-	 * @param employeeId the employeeId to set
-	 */
-	public void setEmployeeId(Integer employeeId) {
-		this.employeeId = employeeId;
-	}
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "department_id")
+    private Department department;
 
-	/**
-	 * @return the employeeNumber
-	 */
-	public Integer getEmployeeNumber() {
-		return employeeNumber;
-	}
+    /**
+     * Default Constructor.
+     */
+    public Employee() {
+        super();
+    }
 
-	/**
-	 * @param employeeNumber the employeeNumber to set
-	 */
-	public void setEmployeeNumber(Integer employeeNumber) {
-		this.employeeNumber = employeeNumber;
-	}
+    /**
+     * @return the employeeId
+     */
+    public Integer getEmployeeId() {
+        return employeeId;
+    }
 
-	/**
-	 * @return the firstName
-	 */
-	public String getFirstName() {
-		return firstName;
-	}
+    /**
+     * @param employeeId the employeeId to set
+     */
+    public void setEmployeeId(final Integer employeeId) {
+        this.employeeId = employeeId;
+    }
 
-	/**
-	 * @param firstName the firstName to set
-	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    /**
+     * @return the employeeNumber
+     */
+    public Integer getEmployeeNumber() {
+        return employeeNumber;
+    }
 
-	/**
-	 * @return the lastName
-	 */
-	public String getLastName() {
-		return lastName;
-	}
+    /**
+     * @param employeeNumber the employeeNumber to set
+     */
+    public void setEmployeeNumber(final Integer employeeNumber) {
+        this.employeeNumber = employeeNumber;
+    }
 
-	/**
-	 * @param lastName the lastName to set
-	 */
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    /**
+     * @return the firstName
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
+    /**
+     * @param firstName the firstName to set
+     */
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
+    }
 
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    /**
+     * @return the lastName
+     */
+    public String getLastName() {
+        return lastName;
+    }
 
-	/**
-	 * @return the mobileNumber
-	 */
-	public String getMobileNumber() {
-		return mobileNumber;
-	}
+    /**
+     * @param lastName the lastName to set
+     */
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
 
-	/**
-	 * @param mobileNumber the mobileNumber to set
-	 */
-	public void setMobileNumber(String mobileNumber) {
-		this.mobileNumber = mobileNumber;
-	}
+    /**
+     * @return the email
+     */
+    public String getEmail() {
+        return email;
+    }
 
-	/**
-	 * @return the status
-	 */
-	public String getStatus() {
-		return status;
-	}
+    /**
+     * @param email the email to set
+     */
+    public void setEmail(final String email) {
+        this.email = email;
+    }
 
-	/**
-	 * @param status the status to set
-	 */
-	public void setStatus(String status) {
-		this.status = status;
-	}
+    /**
+     * @return the mobileNumber
+     */
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
 
-	/**
-	 * @return the department
-	 */
-	public Department getDepartment() {
-		return department;
-	}
+    /**
+     * @param mobileNumber the mobileNumber to set
+     */
+    public void setMobileNumber(final String mobileNumber) {
+        this.mobileNumber = mobileNumber;
+    }
 
-	/**
-	 * @param department the department to set
-	 */
-	public void setDepartment(Department department) {
-		this.department = department;
-	}
+    /**
+     * @return the status
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * @param status the status to set
+     */
+    public void setStatus(final String status) {
+        this.status = status;
+    }
+
+    /**
+     * @return the department
+     */
+    public Department getDepartment() {
+        return department;
+    }
+
+    /**
+     * @param department the department to set
+     */
+    public void setDepartment(final Department department) {
+        this.department = department;
+    }
+
 }

@@ -23,102 +23,103 @@ import com.sparsh.tracker.visit.service.VisitService;
  * @created on 11/12/2012
  */
 @Controller
-@RequestMapping(value="/employee")
+@RequestMapping(value = "/employee")
 public class ManageVisitsController {
 
-	private static final Logger LOGGER = Logger.getLogger(ManageVisitsController.class);
-	
-	@Autowired
-	private VisitService visitService;
+    private static final Logger LOGGER = Logger.getLogger(ManageVisitsController.class);
 
-//	@Autowired
-//	private EmployeeService employeeService;
+    @Autowired
+    private VisitService visitService;
 
-	@RequestMapping(value = "/showvisitstomanage", method = RequestMethod.GET)
-	public String showVisitsToConfirm( Map<String, Object> model, HttpSession session) {
-		try {
-			
-			Login login = (Login) session.getAttribute("login");
-			if(login==null || login.getUserName().equals("")) {
-				return "redirect:/auth/login.do";
-			}
-			
-			Employee employee = login.getEmployee();
-			if(employee==null) {
-				model.put("error_message", "Employee not found");
-				return "error";
-			}
-			
-			//Date today = new com.sparsh.tracker.visit.util.Date().getBeginningOfDay().asUtilDate();			
-			List nonConfirmedVisitList = visitService.getNonConfirmedVisitsForEmployee(employee.getEmployeeNumber());
-			List cancellableVisitList = visitService.getCancellableVisitsForEmployee(employee.getEmployeeNumber());
-			
-			if( (nonConfirmedVisitList==null || nonConfirmedVisitList.size() < 1) 
-			 && (cancellableVisitList==null || cancellableVisitList.size() < 1) ){
-				model.put("message", "No Records found!");
-				return "add_success";
-			}
-			
-			if(nonConfirmedVisitList==null || nonConfirmedVisitList.size() < 1) {
-				model.put("visitList", cancellableVisitList);
-				return "list_visits_to_confirm";
-			}
-			
-			if(cancellableVisitList==null || cancellableVisitList.size() < 1) {
-				model.put("visitList", nonConfirmedVisitList);
-				model.put("userName", login.getUserName());
-				return "list_visits_to_confirm";
-			}
-			
-			//Both List contain values
-			nonConfirmedVisitList.addAll(cancellableVisitList);
-			
-			model.put("visitList", nonConfirmedVisitList);
-//			model.put("userName", login.getUserName());
-			return "list_visits_to_confirm";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
-	
-	@RequestMapping(value="/visit_to_confirm", method = RequestMethod.GET)
-	public String visitToConfirm(@RequestParam(value="visitId") String visitId, Map<String, Object> model) {
-		try{
-			Integer visitOID = Integer.valueOf(visitId);
-			Visit visit = visitService.findById(visitOID);
-			visit.setIsConfirmed(true);
-			visitService.create(visit);
-			
-			model.put("message", "Visit Confirmed!");
-			return "add_success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
-	
-	@RequestMapping(value="/visit_to_cancel", method = RequestMethod.GET)
-	public String visitToCancel(@RequestParam(value="visitId") String visitId, Map<String, Object> model, HttpSession session) {
-		try{
-			Login login = (Login) session.getAttribute("login");
-			if(login==null || login.getUserName().equals("")) {
-				return "redirect:/auth/login.do";
-			}
-			
-			Integer visitOID = Integer.valueOf(visitId);
-			Visit visit = visitService.findById(visitOID);
-			visit.setIsCanceled(true);
-			visitService.create(visit);
-			
-			model.put("message", "Visit Canceled!");
-			return "add_success";
-		} catch (Exception e) {
-			e.printStackTrace();
-			model.put("error_message", "Service not available. Please try after some time.");
-			return "error";
-		}
-	}
+    // @Autowired
+    // private EmployeeService employeeService;
+
+    @RequestMapping(value = "/showvisitstomanage", method = RequestMethod.GET)
+    public String showVisitsToConfirm(final Map<String, Object> model, final HttpSession session) {
+        try {
+
+            Login login = (Login) session.getAttribute("login");
+            if (login == null || login.getUserName().equals("")) {
+                return "redirect:/auth/login.do";
+            }
+
+            Employee employee = login.getEmployee();
+            if (employee == null) {
+                model.put("error_message", "Employee not found");
+                return "error";
+            }
+
+            // Date today = new com.sparsh.tracker.visit.util.Date().getBeginningOfDay().asUtilDate();
+            List nonConfirmedVisitList = visitService.getNonConfirmedVisitsForEmployee(employee.getEmployeeNumber());
+            List cancellableVisitList = visitService.getCancellableVisitsForEmployee(employee.getEmployeeNumber());
+
+            if ((nonConfirmedVisitList == null || nonConfirmedVisitList.size() < 1)
+                    && (cancellableVisitList == null || cancellableVisitList.size() < 1)) {
+                model.put("message", "No Records found!");
+                return "add_success";
+            }
+
+            if (nonConfirmedVisitList == null || nonConfirmedVisitList.size() < 1) {
+                model.put("visitList", cancellableVisitList);
+                return "list_visits_to_confirm";
+            }
+
+            if (cancellableVisitList == null || cancellableVisitList.size() < 1) {
+                model.put("visitList", nonConfirmedVisitList);
+                model.put("userName", login.getUserName());
+                return "list_visits_to_confirm";
+            }
+
+            // Both List contain values
+            nonConfirmedVisitList.addAll(cancellableVisitList);
+
+            model.put("visitList", nonConfirmedVisitList);
+            // model.put("userName", login.getUserName());
+            return "list_visits_to_confirm";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
+
+    @RequestMapping(value = "/visit_to_confirm", method = RequestMethod.GET)
+    public String visitToConfirm(@RequestParam(value = "visitId") final String visitId, final Map<String, Object> model) {
+        try {
+            Integer visitOID = Integer.valueOf(visitId);
+            Visit visit = visitService.findById(visitOID);
+            visit.setIsConfirmed(true);
+            visitService.create(visit);
+
+            model.put("message", "Visit Confirmed!");
+            return "add_success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
+
+    @RequestMapping(value = "/visit_to_cancel", method = RequestMethod.GET)
+    public String visitToCancel(@RequestParam(value = "visitId") final String visitId, final Map<String, Object> model,
+            final HttpSession session) {
+        try {
+            Login login = (Login) session.getAttribute("login");
+            if (login == null || login.getUserName().equals("")) {
+                return "redirect:/auth/login.do";
+            }
+
+            Integer visitOID = Integer.valueOf(visitId);
+            Visit visit = visitService.findById(visitOID);
+            visit.setIsCanceled(true);
+            visitService.create(visit);
+
+            model.put("message", "Visit Canceled!");
+            return "add_success";
+        } catch (Exception e) {
+            e.printStackTrace();
+            model.put("error_message", "Service not available. Please try after some time.");
+            return "error";
+        }
+    }
 }

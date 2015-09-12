@@ -23,7 +23,7 @@ public class LoginServiceImpl implements LoginService {
     /**
      * @param departmentDAO the departmentDAO to set
      */
-    public void setDepartmentDAO(LoginDAO loginDAO) {
+    public void setDepartmentDAO(final LoginDAO loginDAO) {
         this.loginDAO = loginDAO;
     }
 
@@ -31,9 +31,9 @@ public class LoginServiceImpl implements LoginService {
      * (non-Javadoc)
      * @see com.minda.service.DepartmentService#create(com.minda.domain.Department)
      */
-    // @Override
+    @Override
     @Transactional
-    public void create(Login login) {
+    public void create(final Login login) {
         loginDAO.save(login);
 
     }
@@ -42,9 +42,9 @@ public class LoginServiceImpl implements LoginService {
      * (non-Javadoc)
      * @see com.minda.service.DepartmentService#findById(java.lang.Long)
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
-    public Login findById(Integer id) {
+    public Login findById(final Integer id) {
         return (Login) loginDAO.findById(id);
     }
 
@@ -52,8 +52,8 @@ public class LoginServiceImpl implements LoginService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.LoginService#findByUserName(java.lang.String)
      */
-    // @Override
-    public Login findByUserName(String userName) {
+    @Override
+    public Login findByUserName(final String userName) {
         return loginDAO.findByUserName(userName);
     }
 }

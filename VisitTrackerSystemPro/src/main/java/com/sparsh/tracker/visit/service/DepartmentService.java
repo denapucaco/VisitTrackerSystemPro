@@ -12,9 +12,9 @@ import com.sparsh.tracker.visit.domain.Department;
 
 public interface DepartmentService {
 
-    void create(Department department);
+    void create(final Department department);
 
-    Department findById(Integer id);
+    Department findById(final Integer id);
 
     List findAll();
 

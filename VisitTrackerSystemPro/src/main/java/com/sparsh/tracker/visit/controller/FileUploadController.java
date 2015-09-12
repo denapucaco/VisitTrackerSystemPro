@@ -21,78 +21,79 @@ import com.sparsh.tracker.visit.service.EmployeeService;
 import com.sparsh.tracker.visit.service.LoginService;
 import com.sparsh.tracker.visit.util.Date;
 import com.sparsh.tracker.visit.util.NotificationService;
+
 /**
  * 
  * @author Prashant Swamy
  * @created on 13/1/2013
  */
 @Controller
-@RequestMapping(value="/admin")
+@RequestMapping(value = "/admin")
 public class FileUploadController {
 
-	private static final Logger LOGGER = Logger.getLogger(FileUploadController.class);
+    private static final Logger LOGGER = Logger.getLogger(FileUploadController.class);
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-	@Autowired
-	private DepartmentService departmentService;
+    @Autowired
+    private DepartmentService departmentService;
 
-	@Autowired
-	private NotificationService notificationService;
+    @Autowired
+    private NotificationService notificationService;
 
-	@Autowired
-	private EmployeeService employeeService;
+    @Autowired
+    private EmployeeService employeeService;
 
-	@Autowired
-	private LoginService loginService;
+    @Autowired
+    private LoginService loginService;
 
-	@RequestMapping(value="showupload",method=RequestMethod.GET)
-	public String showUploadCSVFile(Map<String, Object> model) {
+    @RequestMapping(value = "showupload", method = RequestMethod.GET)
+    public String showUploadCSVFile(final Map<String, Object> model) {
 
-		LOGGER.info("/admin/showupload");
-		FileUploadForm fileUploadForm = new FileUploadForm();
-		model.put("FileUploadForm", fileUploadForm);
-		return "show_upload";
-	}
+        LOGGER.info("/admin/showupload");
+        FileUploadForm fileUploadForm = new FileUploadForm();
+        model.put("FileUploadForm", fileUploadForm);
+        return "show_upload";
+    }
 
-	@RequestMapping(value = "/saveupload", method = RequestMethod.POST)
-	public String saveUploadedCSVFile(@ModelAttribute("uploadForm") FileUploadForm uploadForm, Map<String, Object> model) {
+    @RequestMapping(value = "/saveupload", method = RequestMethod.POST)
+    public String saveUploadedCSVFile(@ModelAttribute("uploadForm") final FileUploadForm uploadForm, final Map<String, Object> model) {
 
-		MultipartFile multipartFile = uploadForm.getFile();
+        MultipartFile multipartFile = uploadForm.getFile();
 
-		String fileName = "";
-		if(null != multipartFile) {
-			fileName = multipartFile.getOriginalFilename();
-			try {
-				StringBuffer sb = new StringBuffer("C:\\VTS\\in\\");
-				sb.append(new Date().asLong());
-				sb.append(fileName);
+        String fileName = "";
+        if (null != multipartFile) {
+            fileName = multipartFile.getOriginalFilename();
+            try {
+                StringBuffer sb = new StringBuffer("C:\\VTS\\in\\");
+                sb.append(new Date().asLong());
+                sb.append(fileName);
 
-				File destinationFile = new File(sb.toString());
-				multipartFile.transferTo(destinationFile);
+                File destinationFile = new File(sb.toString());
+                multipartFile.transferTo(destinationFile);
 
-				CsvReader employees = new CsvReader(sb.toString());
-				// employees.readHeaders();
+                CsvReader employees = new CsvReader(sb.toString());
+                // employees.readHeaders();
 
-				while (employees.readRecord()) {
-					String firstName = employees.get("FirstName");
-					String lastName = employees.get("LastName");
-					String department = employees.get("Department");
-					String mobileNumber = employees.get("MobileNumber");
-					String email = employees.get("Email");
+                while (employees.readRecord()) {
+                    String firstName = employees.get("FirstName");
+                    String lastName = employees.get("LastName");
+                    String department = employees.get("Department");
+                    String mobileNumber = employees.get("MobileNumber");
+                    String email = employees.get("Email");
 
-					System.out.println(firstName+" "+lastName+" "+department+" "+mobileNumber+" "+email);
-				}
-				employees.close();
-			}catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+                    System.out.println(firstName + " " + lastName + " " + department + " " + mobileNumber + " " + email);
+                }
+                employees.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-		model.put("message", fileName +" uploaded successfully!");
-		return "add_success";
-	}
+        model.put("message", fileName + " uploaded successfully!");
+        return "add_success";
+    }
 }

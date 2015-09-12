@@ -24,7 +24,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     /**
      * @param employeeDAO the employeeDAO to set
      */
-    public void setEmployeeDAO(EmployeeDAO employeeDAO) {
+    public void setEmployeeDAO(final EmployeeDAO employeeDAO) {
         this.employeeDAO = employeeDAO;
     }
 
@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * (non-Javadoc)
      * @see com.minda.service.EmployeeService#create(com.minda.domain.Employee)
      */
-    // @Override
+    @Override
     @Transactional
     public void create(final Employee employee) {
         employeeDAO.save(employee);
@@ -42,7 +42,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * (non-Javadoc)
      * @see com.minda.service.EmployeeService#findById(java.lang.Integer)
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
     public Employee findById(final Integer id) {
         return (Employee) employeeDAO.findById(id);
@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * (non-Javadoc)
      * @see com.minda.service.EmployeeService#findAll()
      */
-    // @Override
+    @Override
     @Transactional(readOnly = true)
     public List findAll() {
         return employeeDAO.findAll();
@@ -62,7 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService {
      * (non-Javadoc)
      * @see com.sparsh.tracker.visit.service.EmployeeService#findByEmployeeNumber(java.lang.Integer)
      */
-    // @Override
+    @Override
     public Employee findByEmployeeNumber(final Integer employeeNumber) {
         List<Employee> employees = employeeDAO.findByEmployeeNumber(employeeNumber);
         if (employees != null && employees.size() > 0) {
