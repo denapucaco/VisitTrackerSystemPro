@@ -19,14 +19,14 @@ import com.sparsh.tracker.visit.domain.Login;
 import com.sparsh.tracker.visit.service.LoginService;
 
 /**
- * A custom service for retrieving users from a custom datasource, such as a database.
+ * A custom service for retrieving users from a custom data source, such as a database.
  * <p>
  * This custom service must implement Spring's {@link UserDetailsService}
  */
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-    protected static Logger logger = Logger.getLogger("service");
+    private static final Logger logger = Logger.getLogger("service");
 
     @Autowired
     private LoginService loginService;
@@ -41,6 +41,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     /**
      * Retrieves a user record containing the user's credentials and access. 
      */
+    @Override
     public UserDetails loadUserByUsername(final String userName) throws UsernameNotFoundException, DataAccessException {
 
         // Declare a null Spring User

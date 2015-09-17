@@ -4,10 +4,9 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.security.authentication.encoding.PasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sparsh.tracker.visit.aspects.Loggable;
 import com.sparsh.tracker.visit.domain.Department;
 import com.sparsh.tracker.visit.domain.Employee;
 import com.sparsh.tracker.visit.domain.Login;
@@ -36,8 +36,6 @@ import com.sparsh.tracker.visit.util.PasswordGenerator;
 @RequestMapping(value = "/admin")
 public class AddEmployeeController {
 
-    private static final Logger LOGGER = Logger.getLogger(AddEmployeeController.class);
-
     @Autowired
     private PasswordEncoder passwordEncoder;
 
@@ -53,84 +51,71 @@ public class AddEmployeeController {
     @Autowired
     private LoginService loginService;
 
+    @Loggable
     @RequestMapping(value = "addemployee", method = RequestMethod.GET)
     public String showAddEmployee(final Map<String, Object> model) {
 
-        LOGGER.info("/admin/addemployee");
-        Employee employee = new Employee();
-        model.put("employee", employee);
+        model.put("employee", new Employee());
         return "create_employee";
     }
 
+    @Loggable
     @RequestMapping(value = "addemployeeconfirm", method = RequestMethod.POST)
     public String confirmAddedEmployee(@ModelAttribute("SpringWeb") final Employee employee, final Map<String, Object> model,
             final BindingResult result) {
-        try {
-            LOGGER.info("/employee/confirmcreate");
 
-            employee.setStatus(EmployeeService.STATUS_ACTIVE);
-            employee.setDepartment(new Department("Offshore Development Team India"));
+        employee.setStatus(EmployeeService.STATUS_ACTIVE);
+        employee.setDepartment(new Department("Offshore Development Team India"));
 
-            Login login = new Login();
-            login.setEmployee(employee);
+        Login login = new Login();
+        login.setEmployee(employee);
 
-            String email = employee.getEmail();
-            int index = email.indexOf("@gmail.com");
+        String email = employee.getEmail();
+        int index = email.indexOf("@gmail.com");
 
-            String userName = email.substring(0, index);
-            login.setUserName(userName);
+        String userName = email.substring(0, index);
+        login.setUserName(userName);
 
-            model.put("login", login);
-            return "create_employee_confirm";
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.put("error_message", "Service not available. Please try after some time.");
-            return "error";
-        }
+        model.put("login", login);
+        return "create_employee_confirm";
     }
 
-    @RequestMapping(value = "/addemployeesuccess", method = RequestMethod.POST)
+    @Loggable
     @Transactional
+    @RequestMapping(value = "/addemployeesuccess", method = RequestMethod.POST)
     public String addSuccess(@ModelAttribute("SpringWeb") final Login login, final Map<String, Object> model) {
-        try {
 
-            Department department = departmentService.findById(1);
+        Department department = departmentService.findById(1);
 
-            Employee employee = login.getEmployee();
-            employee.setStatus(EmployeeService.STATUS_ACTIVE);
-            employee.setDepartment(department);
+        Employee employee = login.getEmployee();
+        employee.setStatus(EmployeeService.STATUS_ACTIVE);
+        employee.setDepartment(department);
 
-            LOGGER.info("/employee/addemployeesuccess");
-            String randomPassword = PasswordGenerator.generate();
-            String hashedPassword = passwordEncoder.encodePassword(randomPassword, null);
+        String randomPassword = PasswordGenerator.generate();
+        String hashedPassword = passwordEncoder.encode(randomPassword);
 
-            login.setPassword(hashedPassword);
-            login.setAccess(LoginService.ACCESS_USER);
+        login.setPassword(hashedPassword);
+        login.setAccess(LoginService.ACCESS_USER);
 
-            login.setAccountNonExpired(true);
-            login.setAccountNotLocked(true);
-            login.setCredentialsNonExpired(true);
-            login.setEnabled(true);
+        login.setAccountNonExpired(true);
+        login.setAccountNotLocked(true);
+        login.setCredentialsNonExpired(true);
+        login.setEnabled(true);
 
-            Map emailMap = new HashMap<String, String>();
-            emailMap.put("userName", login.getUserName());
-            emailMap.put("password", randomPassword);
-            emailMap.put("email", employee.getEmail());
-            emailMap.put("firstName", employee.getFirstName());
-            emailMap.put("lastName", employee.getLastName());
-            notificationService.sendConfirmationEmail(emailMap);
-            // notificationService.sendConfirmationEmail(login);
+        Map<String, Object> emailMap = new HashMap<String, Object>();
+        emailMap.put("userName", login.getUserName());
+        emailMap.put("password", randomPassword);
+        emailMap.put("email", employee.getEmail());
+        emailMap.put("firstName", employee.getFirstName());
+        emailMap.put("lastName", employee.getLastName());
+        notificationService.sendConfirmationEmail(emailMap);
+        // notificationService.sendConfirmationEmail(login);
 
-            employeeService.create(employee);
-            loginService.create(login);
+        employeeService.create(employee);
+        loginService.create(login);
 
-            model.put("message", "Employee added successfully!");
-            return "add_success";
-        } catch (Exception e) {
-            e.printStackTrace();
-            model.put("error_message", "Service not available. Please try after some time.");
-            return "error";
-        }
+        model.put("message", "Employee added successfully!");
+        return "add_success";
     }
 
     @InitBinder

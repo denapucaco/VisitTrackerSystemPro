@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sparsh.tracker.visit.aspects.Loggable;
 import com.sparsh.tracker.visit.domain.Employee;
 import com.sparsh.tracker.visit.domain.Login;
 import com.sparsh.tracker.visit.service.LoginService;
@@ -23,8 +23,6 @@ import com.sparsh.tracker.visit.service.LoginService;
 @Controller
 @RequestMapping(value = "/home")
 public class HomePageController {
-
-    private static final Logger LOGGER = Logger.getLogger(HomePageController.class);
 
     @Autowired
     private LoginService loginService;
@@ -62,6 +60,8 @@ public class HomePageController {
      * (login.getAccess().equals(LoginService.ACCESS_USER)) { return "redirect:/home/user.do"; } // Call should never reach here return
      * null; }
      */
+
+    @Loggable
     @RequestMapping(method = RequestMethod.GET)
     public String showHomePage(final Map<String, Object> model, final HttpSession session, final Principal principal) {
 
@@ -78,15 +78,15 @@ public class HomePageController {
             }
         }
 
+        String viewName = "error";
         if (login.getAccess().equals(LoginService.ACCESS_ADMIN)) {
-            return "show_home_admin";
+            viewName = "show_home_admin";
         } else if (login.getAccess().equals(LoginService.ACCESS_SECURITY)) {
-            return "redirect:/security/index.do";
+            viewName = "redirect:/security/index.do";
         } else if (login.getAccess().equals(LoginService.ACCESS_USER)) {
-            return "show_home_user";
+            viewName = "show_home_user";
         }
 
-        // Call should never reach here
-        return null;
+        return viewName;
     }
 }

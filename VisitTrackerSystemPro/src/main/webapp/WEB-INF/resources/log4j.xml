@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
 
-<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
-	debug="true">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="true">
 
 	<!-- Console Appenders-->
 	<appender name="consoleAppenderINFO" class="org.apache.log4j.ConsoleAppender">
@@ -54,7 +53,7 @@
 	</appender>
 
 	<!-- Loggers -->
-	<logger name="com.minda" additivity="false">
+	<logger name="com.sparsh.tracker.visit" additivity="false">
 		<level value="DEBUG" />
 		<!-- <appender-ref ref="consoleAppenderINFO" /> -->
 		<appender-ref ref="consoleAppenderDEBUG" />

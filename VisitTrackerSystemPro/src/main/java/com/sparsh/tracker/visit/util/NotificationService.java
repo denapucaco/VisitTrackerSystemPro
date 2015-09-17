@@ -35,7 +35,7 @@ public class NotificationService {
         this.velocityEngine = velocityEngine;
     }
 
-    public void sendConfirmationEmail(final Map model) {
+    public void sendConfirmationEmail(final Map<String, Object> model) {
         // MimeMessagePreparator preparator = new MimeMessagePreparator() {
         // public void prepare(MimeMessage mimeMessage) throws Exception {
         // MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
@@ -54,12 +54,12 @@ public class NotificationService {
         emailMessage.setTo((String) model.get("email"));
         emailMessage.setSubject(NotificationService.SUBJECT_REGISTRATION);
 
-        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "register.vm", model);
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "register.vm", "UTF-8", model);
         emailMessage.setText(text);
         mailSender.send(emailMessage);
     }
 
-    public void sendResetPasswordEmail(final Map model) {
+    public void sendResetPasswordEmail(final Map<String, Object> model) {
         // MimeMessagePreparator preparator = new MimeMessagePreparator() {
         // public void prepare(MimeMessage mimeMessage) throws Exception {
         // MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
@@ -78,7 +78,7 @@ public class NotificationService {
         emailMessage.setTo((String) model.get("email"));
         emailMessage.setSubject(NotificationService.SUBJECT_RESET_PASSWORD);
 
-        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resetPassword.vm", model);
+        String text = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine, "resetPassword.vm", "UTF-8", model);
         emailMessage.setText(text);
         mailSender.send(emailMessage);
     }

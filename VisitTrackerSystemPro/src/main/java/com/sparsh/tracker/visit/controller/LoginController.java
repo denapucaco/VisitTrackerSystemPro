@@ -20,7 +20,7 @@ public class LoginController {
     private static final Logger LOGGER = Logger.getLogger(LoginController.class);
 
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String getLoginPage(@RequestParam(value = "error", required = false) final boolean error, final ModelMap model) {
+    public String showLoginPage(@RequestParam(value = "error", required = false) final boolean error, final ModelMap model) {
         LOGGER.debug("Received request to show login page");
 
         // Add an error message to the model if login is unsuccessful
@@ -42,7 +42,7 @@ public class LoginController {
      * @return the name of the JSP page
      */
     @RequestMapping(value = "/denied", method = RequestMethod.GET)
-    public String getDeniedPage() {
+    public String showDeniedPage() {
         LOGGER.debug("Received request to show denied page");
         return "denied_page";
     }

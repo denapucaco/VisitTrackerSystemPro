@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.sparsh.tracker.visit.aspects.Loggable;
 import com.sparsh.tracker.visit.domain.Report;
 import com.sparsh.tracker.visit.domain.Visit;
 import com.sparsh.tracker.visit.service.VisitService;
@@ -45,10 +46,10 @@ public class ReportController {
         this.reportValidator = reportValidator;
     }
 
+    @Loggable
     @RequestMapping(method = RequestMethod.GET)
     public String showReport(final Map<String, Object> model) {
 
-        LOGGER.info("report/select");
         // ReportForm reportForm = new ReportForm();
         // model.put("reportForm", reportForm);
         Report report = new Report();
@@ -56,6 +57,7 @@ public class ReportController {
         return "select_report";
     }
 
+    @Loggable
     @RequestMapping(method = RequestMethod.POST)
     public String generateReport(@ModelAttribute("SpringWeb") final Report report, final Map<String, Object> model,
             final BindingResult result) {
@@ -65,61 +67,56 @@ public class ReportController {
             return "select_report";
         }
 
-        try {
-            LOGGER.info("report/display");
-            // java.util.Date fromDate = new Date(report.getFromDate()).getBeginningOfDay().asUtilDate();
-            Date toDate = new Date(report.getToDate()).getEndOfDay();
+        // java.util.Date fromDate = new Date(report.getFromDate()).getBeginningOfDay().asUtilDate();
+        Date toDate = new Date(report.getToDate()).getEndOfDay();
 
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("FromDate: " + report.getFromDate() + " To Date: " + toDate);
-            }
-            Integer employeeNumber = report.getEmployeeNumber();
-            String employeeFirstName = report.getEmployeeFirstName();
-            String employeeLastName = report.getEmployeeLastName();
-            String departmentName = report.getDepartmentName();
-            String visitorName = report.getVisitorName();
-            String visitorRepresenting = report.getVisitorRepresenting();
-
-            String strFromDate = new Date(report.getFromDate()).format(Date.FORMAT_DB);
-
-            StringBuffer sql = new StringBuffer();
-            sql.append("SELECT visit FROM Visit visit WHERE ");
-            sql.append(" visit.scheduledOn >= '" + strFromDate + "' AND visit.scheduledOn <= '" + toDate.format(Date.FORMAT_DB) + "'");
-            if (employeeNumber != null && employeeNumber > 0) {
-                sql.append(" AND visit.employee.employeeNumber = " + employeeNumber);
-            }
-            if (employeeFirstName != null && !employeeFirstName.equals("")) {
-                sql.append(" AND visit.employee.firstName = '" + employeeFirstName + "' ");
-            }
-            if (employeeLastName != null && !employeeLastName.equals("")) {
-                sql.append(" AND visit.employee.lastName = '" + employeeLastName + "' ");
-            }
-            if (departmentName != null && !departmentName.equals("")) {
-                sql.append(" AND visit.employee.department.name = '" + departmentName + "' ");
-            }
-            if (visitorName != null && !visitorName.equals("")) {
-                sql.append(" AND visit.visitorName = '" + visitorName + "' ");
-            }
-            if (visitorRepresenting != null && !visitorRepresenting.equals("")) {
-                sql.append(" AND visit.representing = '" + visitorRepresenting + "' ");
-            }
-            sql.append(" ORDER BY visit.scheduledOn");
-
-            if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug(sql);
-            }
-
-            model.put("visit", new Visit());
-            List visits = visitService.executeHQLQuery(sql.toString());
-            // model.put("visitList", visitService.getVistsForDateRange(report.getFromDate(), toDate));
-            model.put("visitList", visits);
-
-            return "show_report";
-
-        } catch (Exception e) {
-            model.put("error_message", "Service not available. Please try after some time.");
-            return "error";
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug("FromDate: " + report.getFromDate() + " To Date: " + toDate);
         }
+        Integer employeeNumber = report.getEmployeeNumber();
+        String employeeFirstName = report.getEmployeeFirstName();
+        String employeeLastName = report.getEmployeeLastName();
+        String departmentName = report.getDepartmentName();
+        String visitorName = report.getVisitorName();
+        String visitorRepresenting = report.getVisitorRepresenting();
+
+        String strFromDate = new Date(report.getFromDate()).format(Date.FORMAT_DB);
+
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT visit FROM Visit visit WHERE visit.scheduledOn >= '").append(strFromDate).append("' AND visit.scheduledOn <= '")
+                .append(toDate.format(Date.FORMAT_DB)).append("'");
+
+        if (employeeNumber != null && employeeNumber > 0) {
+            sql.append(" AND visit.employee.employeeNumber = ").append(employeeNumber);
+        }
+        if (employeeFirstName != null && !employeeFirstName.equals("")) {
+            sql.append(" AND visit.employee.firstName = '").append(employeeFirstName + "' ");
+        }
+        if (employeeLastName != null && !employeeLastName.equals("")) {
+            sql.append(" AND visit.employee.lastName = '").append(employeeLastName + "' ");
+        }
+        if (departmentName != null && !departmentName.equals("")) {
+            sql.append(" AND visit.employee.department.name = '").append(departmentName + "' ");
+        }
+        if (visitorName != null && !visitorName.equals("")) {
+            sql.append(" AND visit.visitorName = '").append(visitorName).append("' ");
+        }
+        if (visitorRepresenting != null && !visitorRepresenting.equals("")) {
+            sql.append(" AND visit.representing = '").append(visitorRepresenting).append("' ");
+        }
+        sql.append(" ORDER BY visit.scheduledOn");
+
+        if (LOGGER.isDebugEnabled()) {
+            LOGGER.debug(sql);
+        }
+
+        model.put("visit", new Visit());
+        List visits = visitService.executeHQLQuery(sql.toString());
+        // model.put("visitList", visitService.getVistsForDateRange(report.getFromDate(), toDate));
+        model.put("visitList", visits);
+
+        return "show_report";
+
     }
 
     @InitBinder

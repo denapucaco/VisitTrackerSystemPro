@@ -9,10 +9,11 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<java-version>1.7</java-version>
-		<org.springframework-version>4.1.6.RELEASE</org.springframework-version><!-- Update it to 4.2.1 -->
-		<org.springframework.security-version>4.0.2.RELEASE</org.springframework.security-version>
-		<org.hibernate-version>4.3.10.Final</org.hibernate-version><!-- 5.0.1.Final -->
+		<java.version>1.7</java.version>
+		<org.springframework.version>4.2.1.RELEASE</org.springframework.version>
+		<org.springframework.security.version>4.0.2.RELEASE</org.springframework.security.version>
+		<org.hibernate.version>4.3.10.Final</org.hibernate.version><!-- 5.0.1.Final --><!-- Tested Version it to 4.3.10 -->
+		<aspectj.version>1.8.6</aspectj.version>
 	</properties>
 
 	<dependencies>
@@ -26,12 +27,12 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webmvc</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-orm</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework.version}</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
@@ -39,39 +40,49 @@
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
-			<version>${org.springframework-version}</version>
+			<version>${org.springframework.version}</version>
 		</dependency>
 
 		<!-- Spring Security -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>${org.springframework.security-version}</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>${org.springframework.security-version}</version>
+			<version>${org.springframework.security.version}</version>
 		</dependency>
 
 		<!-- Spring support for mail -->
-		<!-- <dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-support</artifactId>
-			<version>2.0.8</version>
-		</dependency> -->
+		<!-- <dependency> <groupId>org.springframework</groupId> <artifactId>spring-support</artifactId> 
+			<version>2.0.8</version> </dependency> -->
+
+		<!-- Spring AOP -->
+		<dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjrt</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjtools</artifactId>
+            <version>${aspectj.version}</version>
+        </dependency>
 
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
-			<version>${org.hibernate-version}</version>
+			<version>${org.hibernate.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-c3p0</artifactId>
-			<version>${org.hibernate-version}</version>
+			<version>${org.hibernate.version}</version>
 		</dependency>
 
 		<dependency>
@@ -126,6 +137,11 @@
 			<artifactId>javax.mail-api</artifactId>
 			<version>1.5.4</version>
 		</dependency>
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.5.4</version>
+		</dependency>
 
 		<!-- For BasicDataSource -->
 		<dependency>
@@ -145,14 +161,24 @@
 	<build>
 		<finalName>VisitTrackerSystemPro</finalName>
 		<plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
-                </configuration>
-            </plugin>
-        </plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<warName>VisitTrackerSystemPro</warName>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>
